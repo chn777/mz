@@ -1,0 +1,13 @@
+description = "sap service destion";
+host = "192.168.1.230";
+port = 50000;
+pathPrefix = "/b1s/v1/";
+proxyType = none;
+proxyHost = "";
+proxyPort = 0;
+authType = none;
+samlNameId = ["email"];
+useSSL = true;
+timeout = 0;
+sslHostCheck = true;
+sslAuth = anonymous;

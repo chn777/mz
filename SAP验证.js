@@ -1,0 +1,5 @@
+{
+	"Cookie":"B1SESSION=10dfd69c-0bc9-11e9-8000-00163e2ed218;ROUTEID=.node1",
+	"SessionId":"B1SESSION=10dfd69c-0bc9-11e9-8000-00163e2ed218;ROUTEID=.node1",
+	"SessionId":"10dfd69c-0bc9-11e9-8000-00163e2ed218"
+}

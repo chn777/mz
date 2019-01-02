@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+
+<html>
+
+       <head>
+
+              <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+   <title>Test</title>
+
+ 
+
+     <script src="/sap/ui5/1/resources/sap-ui-core.js"
+
+                      id="sap-ui-bootstrap"
+
+                      data-sap-ui-libs="sap.ui.ux3,sap.ui.commons"
+
+                      data-sap-ui-theme="sap_bluecrystal" >
+
+              </script>
+
+              <!-- add sap.ui.table,sap.ui.ux3 and/or other libraries to 'data-sap-ui-libs' if required -->
+
+   <script type="text/javascript">
+
+     function callService(){
+    
+  var oBusinessPartner = {
+	"SessionId":"0bfe2b52-0e6b-11e9-8000-fa163e843f57",
+	"data":
+	{
+        "BPL_IDAssignedToInvoice":"8",
+ 		"Requester":"L001",
+ 		"DocDate":"2018-12-30",
+ 		"DocDueDate":"2018-12-30",
+ 		"TaxDate":"2018-12-30",
+ 		"RequriedDate": "2018-12-30",
+ 		"DocumentLines":
+ 		[
+			{
+				"ItemCode":"1000001",
+				"Quantity":"2",
+				"WarehouseCode":"1601",
+				"Price":12,
+				"RequiredDate":"2018-12-30"
+			}
+ 		]
+	}
+};
+  
+   
+  
+
+
+  $.ajax({
+
+                 url: '/mz/Purchase/PurchaseRequests.xsjs',
+
+                 type: 'POST',
+
+                 contentType: 'application/json',
+
+                 data: JSON.stringify(oBusinessPartner),
+
+                 dataType: 'json',
+
+                 success: function(){alert("Success")},
+
+                 error:  function(jqXHR, textStatus, errorThrown){
+
+                     sap.ui.commons.MessageBox.show(jqXHR.responseText, "ERROR", "Service call error");
+
+                 }
+
+             });
+
+     }
+
+    
+
+  var myButton = new sap.ui.commons.Button("btn");
+
+  myButton.setText("Hello World Demo");
+
+  myButton.attachPress(function(){callService()});
+
+  myButton.placeAt("content");
+
+  </script>
+
+     <script>
+
+     </script>
+
+       </head>
+
+       <body class="sapUiBody" role="application">
+
+              <div id="content"></div>
+
+       </body>
+
+</html>

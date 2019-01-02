@@ -1,0 +1,282 @@
+var ResourceWarehouse = require('ComplexType/ResourceWarehouse')
+var ResourceWarehouseCollection = require('ComplexType/ResourceWarehouseCollection')
+var ResourceFixedAsset = require('ComplexType/ResourceFixedAsset')
+var ResourceFixedAssetCollection = require('ComplexType/ResourceFixedAssetCollection')
+var ResourceEmployee = require('ComplexType/ResourceEmployee')
+var ResourceEmployeeCollection = require('ComplexType/ResourceEmployeeCollection')
+var ResourceDailyCapacity = require('ComplexType/ResourceDailyCapacity')
+var ResourceDailyCapacityCollection = require('ComplexType/ResourceDailyCapacityCollection')
+
+var ResourceTypeEnum = require('EnumType/ResourceTypeEnum')
+var ResourceIssueMethodEnum = require('EnumType/ResourceIssueMethodEnum')
+var BoYesNoEnum = require('EnumType/BoYesNoEnum')
+var ResourceAllocationEnum = require('EnumType/ResourceAllocationEnum')
+
+var ServiceLayerModule = require('Base/ServiceLayerModule.js');
+
+//workaround the possible intellisense bug of VS
+if (typeof (SAPB1) === "undefined") {
+    SAPB1 = {};
+}
+
+SAPB1.Resource = function () {
+}
+SAPB1.Resource.prototype = new SAPB1.EntityType();
+SAPB1.Resource.prototype.constructor = SAPB1.Resource;
+SAPB1.Resource.prototype.keys.push('Code');
+SAPB1.Resource.Code = { valueOf: function(){return 'Code';}, Type: 'Edm.String', Index: 0, Nullable: false, IsArray: false, IsComplex: false };
+SAPB1.Resource.VisCode = { valueOf: function(){return 'VisCode';}, Type: 'Edm.String', Index: 1, Nullable: false, IsArray: false, IsComplex: false };
+SAPB1.Resource.Series = { valueOf: function(){return 'Series';}, Type: 'Edm.Int32', Index: 2, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Number = { valueOf: function(){return 'Number';}, Type: 'Edm.Int32', Index: 3, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.CodeBar = { valueOf: function(){return 'CodeBar';}, Type: 'Edm.String', Index: 4, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Name = { valueOf: function(){return 'Name';}, Type: 'Edm.String', Index: 5, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.ForeignName = { valueOf: function(){return 'ForeignName';}, Type: 'Edm.String', Index: 6, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Type = { valueOf: function(){return 'Type';}, Type: 'ResourceTypeEnum', Index: 7, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Group = { valueOf: function(){return 'Group';}, Type: 'Edm.Int32', Index: 8, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.UnitOfMeasure = { valueOf: function(){return 'UnitOfMeasure';}, Type: 'Edm.String', Index: 9, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.IssueMethod = { valueOf: function(){return 'IssueMethod';}, Type: 'ResourceIssueMethodEnum', Index: 10, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Cost1 = { valueOf: function(){return 'Cost1';}, Type: 'Edm.Double', Index: 11, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Cost2 = { valueOf: function(){return 'Cost2';}, Type: 'Edm.Double', Index: 12, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Cost3 = { valueOf: function(){return 'Cost3';}, Type: 'Edm.Double', Index: 13, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Cost4 = { valueOf: function(){return 'Cost4';}, Type: 'Edm.Double', Index: 14, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Cost5 = { valueOf: function(){return 'Cost5';}, Type: 'Edm.Double', Index: 15, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Cost6 = { valueOf: function(){return 'Cost6';}, Type: 'Edm.Double', Index: 16, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Cost7 = { valueOf: function(){return 'Cost7';}, Type: 'Edm.Double', Index: 17, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Cost8 = { valueOf: function(){return 'Cost8';}, Type: 'Edm.Double', Index: 18, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Cost9 = { valueOf: function(){return 'Cost9';}, Type: 'Edm.Double', Index: 19, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Cost10 = { valueOf: function(){return 'Cost10';}, Type: 'Edm.Double', Index: 20, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Active = { valueOf: function(){return 'Active';}, Type: 'BoYesNoEnum', Index: 21, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.ActiveFrom = { valueOf: function(){return 'ActiveFrom';}, Type: 'Edm.DateTime', Index: 22, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.ActiveTo = { valueOf: function(){return 'ActiveTo';}, Type: 'Edm.DateTime', Index: 23, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Inactive = { valueOf: function(){return 'Inactive';}, Type: 'BoYesNoEnum', Index: 24, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.InactiveFrom = { valueOf: function(){return 'InactiveFrom';}, Type: 'Edm.DateTime', Index: 25, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.InactiveTo = { valueOf: function(){return 'InactiveTo';}, Type: 'Edm.DateTime', Index: 26, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.DefaultWarehouse = { valueOf: function(){return 'DefaultWarehouse';}, Type: 'Edm.String', Index: 27, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Picture = { valueOf: function(){return 'Picture';}, Type: 'Edm.String', Index: 28, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Remarks = { valueOf: function(){return 'Remarks';}, Type: 'Edm.String', Index: 29, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property1 = { valueOf: function(){return 'Property1';}, Type: 'BoYesNoEnum', Index: 30, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property2 = { valueOf: function(){return 'Property2';}, Type: 'BoYesNoEnum', Index: 31, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property3 = { valueOf: function(){return 'Property3';}, Type: 'BoYesNoEnum', Index: 32, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property4 = { valueOf: function(){return 'Property4';}, Type: 'BoYesNoEnum', Index: 33, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property5 = { valueOf: function(){return 'Property5';}, Type: 'BoYesNoEnum', Index: 34, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property6 = { valueOf: function(){return 'Property6';}, Type: 'BoYesNoEnum', Index: 35, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property7 = { valueOf: function(){return 'Property7';}, Type: 'BoYesNoEnum', Index: 36, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property8 = { valueOf: function(){return 'Property8';}, Type: 'BoYesNoEnum', Index: 37, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property9 = { valueOf: function(){return 'Property9';}, Type: 'BoYesNoEnum', Index: 38, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property10 = { valueOf: function(){return 'Property10';}, Type: 'BoYesNoEnum', Index: 39, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property11 = { valueOf: function(){return 'Property11';}, Type: 'BoYesNoEnum', Index: 40, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property12 = { valueOf: function(){return 'Property12';}, Type: 'BoYesNoEnum', Index: 41, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property13 = { valueOf: function(){return 'Property13';}, Type: 'BoYesNoEnum', Index: 42, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property14 = { valueOf: function(){return 'Property14';}, Type: 'BoYesNoEnum', Index: 43, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property15 = { valueOf: function(){return 'Property15';}, Type: 'BoYesNoEnum', Index: 44, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property16 = { valueOf: function(){return 'Property16';}, Type: 'BoYesNoEnum', Index: 45, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property17 = { valueOf: function(){return 'Property17';}, Type: 'BoYesNoEnum', Index: 46, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property18 = { valueOf: function(){return 'Property18';}, Type: 'BoYesNoEnum', Index: 47, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property19 = { valueOf: function(){return 'Property19';}, Type: 'BoYesNoEnum', Index: 48, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property20 = { valueOf: function(){return 'Property20';}, Type: 'BoYesNoEnum', Index: 49, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property21 = { valueOf: function(){return 'Property21';}, Type: 'BoYesNoEnum', Index: 50, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property22 = { valueOf: function(){return 'Property22';}, Type: 'BoYesNoEnum', Index: 51, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property23 = { valueOf: function(){return 'Property23';}, Type: 'BoYesNoEnum', Index: 52, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property24 = { valueOf: function(){return 'Property24';}, Type: 'BoYesNoEnum', Index: 53, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property25 = { valueOf: function(){return 'Property25';}, Type: 'BoYesNoEnum', Index: 54, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property26 = { valueOf: function(){return 'Property26';}, Type: 'BoYesNoEnum', Index: 55, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property27 = { valueOf: function(){return 'Property27';}, Type: 'BoYesNoEnum', Index: 56, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property28 = { valueOf: function(){return 'Property28';}, Type: 'BoYesNoEnum', Index: 57, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property29 = { valueOf: function(){return 'Property29';}, Type: 'BoYesNoEnum', Index: 58, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property30 = { valueOf: function(){return 'Property30';}, Type: 'BoYesNoEnum', Index: 59, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property31 = { valueOf: function(){return 'Property31';}, Type: 'BoYesNoEnum', Index: 60, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property32 = { valueOf: function(){return 'Property32';}, Type: 'BoYesNoEnum', Index: 61, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property33 = { valueOf: function(){return 'Property33';}, Type: 'BoYesNoEnum', Index: 62, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property34 = { valueOf: function(){return 'Property34';}, Type: 'BoYesNoEnum', Index: 63, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property35 = { valueOf: function(){return 'Property35';}, Type: 'BoYesNoEnum', Index: 64, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property36 = { valueOf: function(){return 'Property36';}, Type: 'BoYesNoEnum', Index: 65, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property37 = { valueOf: function(){return 'Property37';}, Type: 'BoYesNoEnum', Index: 66, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property38 = { valueOf: function(){return 'Property38';}, Type: 'BoYesNoEnum', Index: 67, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property39 = { valueOf: function(){return 'Property39';}, Type: 'BoYesNoEnum', Index: 68, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property40 = { valueOf: function(){return 'Property40';}, Type: 'BoYesNoEnum', Index: 69, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property41 = { valueOf: function(){return 'Property41';}, Type: 'BoYesNoEnum', Index: 70, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property42 = { valueOf: function(){return 'Property42';}, Type: 'BoYesNoEnum', Index: 71, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property43 = { valueOf: function(){return 'Property43';}, Type: 'BoYesNoEnum', Index: 72, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property44 = { valueOf: function(){return 'Property44';}, Type: 'BoYesNoEnum', Index: 73, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property45 = { valueOf: function(){return 'Property45';}, Type: 'BoYesNoEnum', Index: 74, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property46 = { valueOf: function(){return 'Property46';}, Type: 'BoYesNoEnum', Index: 75, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property47 = { valueOf: function(){return 'Property47';}, Type: 'BoYesNoEnum', Index: 76, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property48 = { valueOf: function(){return 'Property48';}, Type: 'BoYesNoEnum', Index: 77, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property49 = { valueOf: function(){return 'Property49';}, Type: 'BoYesNoEnum', Index: 78, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property50 = { valueOf: function(){return 'Property50';}, Type: 'BoYesNoEnum', Index: 79, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property51 = { valueOf: function(){return 'Property51';}, Type: 'BoYesNoEnum', Index: 80, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property52 = { valueOf: function(){return 'Property52';}, Type: 'BoYesNoEnum', Index: 81, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property53 = { valueOf: function(){return 'Property53';}, Type: 'BoYesNoEnum', Index: 82, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property54 = { valueOf: function(){return 'Property54';}, Type: 'BoYesNoEnum', Index: 83, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property55 = { valueOf: function(){return 'Property55';}, Type: 'BoYesNoEnum', Index: 84, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property56 = { valueOf: function(){return 'Property56';}, Type: 'BoYesNoEnum', Index: 85, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property57 = { valueOf: function(){return 'Property57';}, Type: 'BoYesNoEnum', Index: 86, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property58 = { valueOf: function(){return 'Property58';}, Type: 'BoYesNoEnum', Index: 87, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property59 = { valueOf: function(){return 'Property59';}, Type: 'BoYesNoEnum', Index: 88, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property60 = { valueOf: function(){return 'Property60';}, Type: 'BoYesNoEnum', Index: 89, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property61 = { valueOf: function(){return 'Property61';}, Type: 'BoYesNoEnum', Index: 90, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property62 = { valueOf: function(){return 'Property62';}, Type: 'BoYesNoEnum', Index: 91, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property63 = { valueOf: function(){return 'Property63';}, Type: 'BoYesNoEnum', Index: 92, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Property64 = { valueOf: function(){return 'Property64';}, Type: 'BoYesNoEnum', Index: 93, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.ActiveRemarks = { valueOf: function(){return 'ActiveRemarks';}, Type: 'Edm.String', Index: 94, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.InactiveRemarks = { valueOf: function(){return 'InactiveRemarks';}, Type: 'Edm.String', Index: 95, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.AttachmentEntry = { valueOf: function(){return 'AttachmentEntry';}, Type: 'Edm.Int32', Index: 96, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.UnitsPerTime = { valueOf: function(){return 'UnitsPerTime';}, Type: 'Edm.Int32', Index: 97, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.TimePerUnits = { valueOf: function(){return 'TimePerUnits';}, Type: 'Edm.Int32', Index: 98, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.Allocation = { valueOf: function(){return 'Allocation';}, Type: 'ResourceAllocationEnum', Index: 99, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.LinkedItem = { valueOf: function(){return 'LinkedItem';}, Type: 'Edm.String', Index: 100, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.RelevantForSingleRun1 = { valueOf: function(){return 'RelevantForSingleRun1';}, Type: 'BoYesNoEnum', Index: 101, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.RelevantForSingleRun2 = { valueOf: function(){return 'RelevantForSingleRun2';}, Type: 'BoYesNoEnum', Index: 102, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.RelevantForSingleRun3 = { valueOf: function(){return 'RelevantForSingleRun3';}, Type: 'BoYesNoEnum', Index: 103, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.RelevantForSingleRun4 = { valueOf: function(){return 'RelevantForSingleRun4';}, Type: 'BoYesNoEnum', Index: 104, Nullable: true, IsArray: false, IsComplex: false };
+SAPB1.Resource.ResourceWarehouses = { valueOf: function(){return 'ResourceWarehouses';}, Type: 'ResourceWarehouse', Index: 105, Nullable: true, IsArray: true, IsComplex: true };
+SAPB1.Resource.ResourceFixedAssets = { valueOf: function(){return 'ResourceFixedAssets';}, Type: 'ResourceFixedAsset', Index: 106, Nullable: true, IsArray: true, IsComplex: true };
+SAPB1.Resource.ResourceEmployees = { valueOf: function(){return 'ResourceEmployees';}, Type: 'ResourceEmployee', Index: 107, Nullable: true, IsArray: true, IsComplex: true };
+SAPB1.Resource.ResourceDailyCapacities = { valueOf: function(){return 'ResourceDailyCapacities';}, Type: 'ResourceDailyCapacity', Index: 108, Nullable: true, IsArray: true, IsComplex: true };
+SAPB1.Resource.prototype.Code = new String();
+SAPB1.Resource.prototype.VisCode = new String();
+SAPB1.Resource.prototype.Series = new Number();
+SAPB1.Resource.prototype.Number = new Number();
+SAPB1.Resource.prototype.CodeBar = new String();
+SAPB1.Resource.prototype.Name = new String();
+SAPB1.Resource.prototype.ForeignName = new String();
+SAPB1.Resource.prototype.Type = new String();
+SAPB1.Resource.prototype.Group = new Number();
+SAPB1.Resource.prototype.UnitOfMeasure = new String();
+SAPB1.Resource.prototype.IssueMethod = new String();
+SAPB1.Resource.prototype.Cost1 = new Number();
+SAPB1.Resource.prototype.Cost2 = new Number();
+SAPB1.Resource.prototype.Cost3 = new Number();
+SAPB1.Resource.prototype.Cost4 = new Number();
+SAPB1.Resource.prototype.Cost5 = new Number();
+SAPB1.Resource.prototype.Cost6 = new Number();
+SAPB1.Resource.prototype.Cost7 = new Number();
+SAPB1.Resource.prototype.Cost8 = new Number();
+SAPB1.Resource.prototype.Cost9 = new Number();
+SAPB1.Resource.prototype.Cost10 = new Number();
+SAPB1.Resource.prototype.Active = new String();
+SAPB1.Resource.prototype.ActiveFrom = new String();
+SAPB1.Resource.prototype.ActiveTo = new String();
+SAPB1.Resource.prototype.Inactive = new String();
+SAPB1.Resource.prototype.InactiveFrom = new String();
+SAPB1.Resource.prototype.InactiveTo = new String();
+SAPB1.Resource.prototype.DefaultWarehouse = new String();
+SAPB1.Resource.prototype.Picture = new String();
+SAPB1.Resource.prototype.Remarks = new String();
+SAPB1.Resource.prototype.Property1 = new String();
+SAPB1.Resource.prototype.Property2 = new String();
+SAPB1.Resource.prototype.Property3 = new String();
+SAPB1.Resource.prototype.Property4 = new String();
+SAPB1.Resource.prototype.Property5 = new String();
+SAPB1.Resource.prototype.Property6 = new String();
+SAPB1.Resource.prototype.Property7 = new String();
+SAPB1.Resource.prototype.Property8 = new String();
+SAPB1.Resource.prototype.Property9 = new String();
+SAPB1.Resource.prototype.Property10 = new String();
+SAPB1.Resource.prototype.Property11 = new String();
+SAPB1.Resource.prototype.Property12 = new String();
+SAPB1.Resource.prototype.Property13 = new String();
+SAPB1.Resource.prototype.Property14 = new String();
+SAPB1.Resource.prototype.Property15 = new String();
+SAPB1.Resource.prototype.Property16 = new String();
+SAPB1.Resource.prototype.Property17 = new String();
+SAPB1.Resource.prototype.Property18 = new String();
+SAPB1.Resource.prototype.Property19 = new String();
+SAPB1.Resource.prototype.Property20 = new String();
+SAPB1.Resource.prototype.Property21 = new String();
+SAPB1.Resource.prototype.Property22 = new String();
+SAPB1.Resource.prototype.Property23 = new String();
+SAPB1.Resource.prototype.Property24 = new String();
+SAPB1.Resource.prototype.Property25 = new String();
+SAPB1.Resource.prototype.Property26 = new String();
+SAPB1.Resource.prototype.Property27 = new String();
+SAPB1.Resource.prototype.Property28 = new String();
+SAPB1.Resource.prototype.Property29 = new String();
+SAPB1.Resource.prototype.Property30 = new String();
+SAPB1.Resource.prototype.Property31 = new String();
+SAPB1.Resource.prototype.Property32 = new String();
+SAPB1.Resource.prototype.Property33 = new String();
+SAPB1.Resource.prototype.Property34 = new String();
+SAPB1.Resource.prototype.Property35 = new String();
+SAPB1.Resource.prototype.Property36 = new String();
+SAPB1.Resource.prototype.Property37 = new String();
+SAPB1.Resource.prototype.Property38 = new String();
+SAPB1.Resource.prototype.Property39 = new String();
+SAPB1.Resource.prototype.Property40 = new String();
+SAPB1.Resource.prototype.Property41 = new String();
+SAPB1.Resource.prototype.Property42 = new String();
+SAPB1.Resource.prototype.Property43 = new String();
+SAPB1.Resource.prototype.Property44 = new String();
+SAPB1.Resource.prototype.Property45 = new String();
+SAPB1.Resource.prototype.Property46 = new String();
+SAPB1.Resource.prototype.Property47 = new String();
+SAPB1.Resource.prototype.Property48 = new String();
+SAPB1.Resource.prototype.Property49 = new String();
+SAPB1.Resource.prototype.Property50 = new String();
+SAPB1.Resource.prototype.Property51 = new String();
+SAPB1.Resource.prototype.Property52 = new String();
+SAPB1.Resource.prototype.Property53 = new String();
+SAPB1.Resource.prototype.Property54 = new String();
+SAPB1.Resource.prototype.Property55 = new String();
+SAPB1.Resource.prototype.Property56 = new String();
+SAPB1.Resource.prototype.Property57 = new String();
+SAPB1.Resource.prototype.Property58 = new String();
+SAPB1.Resource.prototype.Property59 = new String();
+SAPB1.Resource.prototype.Property60 = new String();
+SAPB1.Resource.prototype.Property61 = new String();
+SAPB1.Resource.prototype.Property62 = new String();
+SAPB1.Resource.prototype.Property63 = new String();
+SAPB1.Resource.prototype.Property64 = new String();
+SAPB1.Resource.prototype.ActiveRemarks = new String();
+SAPB1.Resource.prototype.InactiveRemarks = new String();
+SAPB1.Resource.prototype.AttachmentEntry = new Number();
+SAPB1.Resource.prototype.UnitsPerTime = new Number();
+SAPB1.Resource.prototype.TimePerUnits = new Number();
+SAPB1.Resource.prototype.Allocation = new String();
+SAPB1.Resource.prototype.LinkedItem = new String();
+SAPB1.Resource.prototype.RelevantForSingleRun1 = new String();
+SAPB1.Resource.prototype.RelevantForSingleRun2 = new String();
+SAPB1.Resource.prototype.RelevantForSingleRun3 = new String();
+SAPB1.Resource.prototype.RelevantForSingleRun4 = new String();
+SAPB1.Resource.prototype.ResourceWarehouses = new ResourceWarehouseCollection();
+SAPB1.Resource.prototype.ResourceFixedAssets = new ResourceFixedAssetCollection();
+SAPB1.Resource.prototype.ResourceEmployees = new ResourceEmployeeCollection();
+SAPB1.Resource.prototype.ResourceDailyCapacities = new ResourceDailyCapacityCollection();
+
+SAPB1.Resource.ResourceWarehouse = ResourceWarehouse
+SAPB1.Resource.ResourceWarehouseCollection = ResourceWarehouseCollection
+SAPB1.Resource.ResourceFixedAsset = ResourceFixedAsset
+SAPB1.Resource.ResourceFixedAssetCollection = ResourceFixedAssetCollection
+SAPB1.Resource.ResourceEmployee = ResourceEmployee
+SAPB1.Resource.ResourceEmployeeCollection = ResourceEmployeeCollection
+SAPB1.Resource.ResourceDailyCapacity = ResourceDailyCapacity
+SAPB1.Resource.ResourceDailyCapacityCollection = ResourceDailyCapacityCollection
+
+SAPB1.Resource.ResourceTypeEnum = ResourceTypeEnum
+SAPB1.Resource.ResourceIssueMethodEnum = ResourceIssueMethodEnum
+SAPB1.Resource.BoYesNoEnum = BoYesNoEnum
+SAPB1.Resource.ResourceAllocationEnum = ResourceAllocationEnum
+
+SAPB1.Resource.create = function (rawObject) {
+    var instance = new SAPB1.Resource();
+    for (var prop in rawObject) {
+        if (rawObject.hasOwnProperty(prop)) {
+            if (SAPB1.Resource.prototype.hasOwnProperty(prop)) {
+                if (instance[prop] instanceof SAPB1.Collection) {
+                    var collectionInstance = instance[prop].constructor.create(rawObject[prop]);
+                    instance[prop] = collectionInstance;
+                } else if (instance[prop] instanceof SAPB1.ComplexType) {
+                    var complexInstance = instance[prop].constructor.create(rawObject[prop]);
+                    instance[prop] = complexInstance;
+                }
+                else {
+                    instance[prop] = rawObject[prop];
+                }
+            }
+        }
+    }
+    return instance;
+}
+
+
+module.exports = SAPB1.Resource;
